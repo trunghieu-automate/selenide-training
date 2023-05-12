@@ -26,5 +26,40 @@
 - - sibling(int index): $("td").sibling(0) will give the first following sibling element of "td"
 
 ### Interaction
-#### click
-- click(ClickOption ckickOption): 
+#### Mouse action
+- click(ClickOption ckickOption): Click the element using ClickOptions: `$("#username").click(ClickOptions.usingJavaScript())`, return SelenideElement but can be ignored
+> You can specify a relative offset from the center of the element inside ClickOptions: e.g.
+```java
+$("#username").click(usingJavaScript().offset(123, 222))
+````
+- click(): simple click the element
+- contextClick(): return SelenideElement but can be ignored
+- doubleClick(): return SelenideElement but can be ignored
+- hover(): Emulate "mouseOver" event, return SelenideElement but can be ignored
+- dragAndDrop(DragAndDropOptions options): return SelenideElement but can be ignored, automatically wait for element get visible before acting.
+```java
+// Locate the source element using Selenide
+SelenideElement source = $("#source");
+
+// Locate the target element using Selenide
+SelenideElement target = $("#target");
+
+// Perform the drag and drop action using the dragAndDrop method
+source.dragAndDrop(target);
+```
+
+
+
+#### Other:
+##### download file
+Selenide has download method that return File object, performing a click to the element
+- download()
+- download(long timeout)
+- download(long timeout, FileFilter fileFilter):
+- download(DownloadOption option): not performing a click
+- download(Filefilter fileFilter)
+##### screenshot
+Perform screenshot to the elements
+- screenshot(): return File object with png extension, or null if failed to take a screenshot.
+- screenshotAsImage(): return [`BufferedImage`](https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/java/awt/image/BufferedImage.html)
+- 
