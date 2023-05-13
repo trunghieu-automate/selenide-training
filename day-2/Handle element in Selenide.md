@@ -47,9 +47,43 @@ SelenideElement target = $("#target");
 // Perform the drag and drop action using the dragAndDrop method
 source.dragAndDrop(target);
 ```
+#### Dropdown list:
+Locate the parent then do these method to catch value, text, selecting a option or multiple options as you wish.
+- selectOption(int index, int ...otherIndexes): select option from dropdown list, can pass another indexes from 2nd argument if you want to select multiple options
+- selectOption(String text, String ...otherTexts): same as above
+- selectOptionContainText(String text, String ...otherTexts): same as above but check the option's substring
+- selectOptionByValue(String value, String ...othervalues): same as above but check the value attribute.
+- getSelectedOption(): return SelenideElement Object that is the first option is selected.
+- getSelectedoptions(): return ElementsCollection that are selected in the dropdown list.
+- getSelectedOptionValue(): return String that is value of the selected option value
+- getSelectedOptionText(): return String that is text of the selected option
 
-
-
+#### Scroll
+Selenide provides these method for scroll into selected element, adding some option for more reality as an end user.
+- scrollTo(): scroll to element
+- scrollIntoView(boolean alignToTop): If true: top of the element will be at the top of browser's view. Vice versal
+- scrollIntoView(String scrollOptions): scroll that set by specific options
+```java
+scrollIntoViewOptions:
+  * behavior (optional) - Defines the transition animation
+    1. auto (default)
+    2. instant
+    3. smooth
+  * block (optional)
+    1. start
+    2. center (default)
+    3. end
+    4. nearest
+  * inline
+    1. start
+    2. center
+    3. end
+    4. nearest (default)
+```
+```java
+   element.scrollIntoView("{block: \"end\"}");
+   element.scrollIntoView("{behavior: \"instant\", block: \"end\", inline: \"nearest\"}");
+```
 #### Other:
 ##### download file
 Selenide has download method that return File object, performing a click to the element
@@ -62,4 +96,21 @@ Selenide has download method that return File object, performing a click to the 
 Perform screenshot to the elements
 - screenshot(): return File object with png extension, or null if failed to take a screenshot.
 - screenshotAsImage(): return [`BufferedImage`](https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/java/awt/image/BufferedImage.html)
-- 
+##### upload file
+SelenideElement can upload file to uploaded field (input='file') using uploadFile() method
+- uploadFile(File ...file): take as many files as arguments as you wish..., return the first File object that you upload
+
+##### SendKey
+We have method setValue() to cover sendKey() of Selenium in Selenide. Selennide has more methods to interact with text and textarea:
+- setValue(String text): use for <input> and <textarea>, means you can select radio/ checkbox by this method.
+> If Configuration.fastInput = true, Selenide will use js input instead of selenium's sendKey method. If not, things will do the following: clear() -> sendKey() -> trigger change event
+- append(): use for <text> and <textarea>, used for append text to selected text or textarea -> mean no clear()
+- clear(): same as Selenium
+- paste(): Append text from the clipboard to the text field and trigger change event.
+##### Convert to Selenium WebELement
+This method help convert SelenideElement to WebElement
+- toWebElement() node that there are no waiting for this elements to convert
+- getWrappedElement() 
+
+
+
